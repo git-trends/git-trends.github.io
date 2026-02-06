@@ -1,550 +1,1011 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f1319" />
+    <title>GitTrends - Discover Trending GitHub Repositories</title>
+    <meta
+      name="description"
+      content="Explore the hottest open-source projects on GitHub. Track daily, weekly, and monthly trending repositories across all programming languages."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    />
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="#/" class="logo">
+          <div class="logo-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+              <polyline points="16 7 22 7 22 13" />
+            </svg>
+          </div>
+          <span class="logo-text">GitTrends</span>
+        </a>
+        <nav class="nav-desktop">
+          <a href="#/" class="nav-link active" data-nav="trending">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+              <polyline points="16 7 22 7 22 13" />
+            </svg>
+            Trending
+          </a>
+          <a href="#/search" class="nav-link" data-nav="search">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            Search
+          </a>
+        </nav>
+        <div class="header-right">
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="github-link"
+          >
+            <svg fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              />
+            </svg>
+            <span class="sr-only">GitHub</span>
+          </a>
+          <button
+            class="mobile-toggle"
+            id="mobile-toggle"
+            aria-label="Toggle navigation"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              id="menu-icon"
+            >
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="4" y1="6" x2="20" y2="6" />
+              <line x1="4" y1="18" x2="20" y2="18" />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              id="close-icon"
+              class="hidden"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="mobile-nav" id="mobile-nav">
+        <a
+          href="#/"
+          class="nav-link active"
+          data-nav="trending"
+          onclick="closeMobile()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+            <polyline points="16 7 22 7 22 13" />
+          </svg>
+          Trending
+        </a>
+        <a
+          href="#/search"
+          class="nav-link"
+          data-nav="search"
+          onclick="closeMobile()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          Search
+        </a>
+        <a
+          href="#/about"
+          class="nav-link"
+          data-nav="about"
+          onclick="closeMobile()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
+          </svg>
+          About
+        </a>
+        <a
+          href="#/privacy"
+          class="nav-link"
+          data-nav="privacy"
+          onclick="closeMobile()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          Privacy
+        </a>
+      </div>
+    </header>
 
-    <!DOCTYPE html>
-    <html lang='en'>
-        <head>
-            <title>Popular Github Repos - Github Trends 2026-02-06</title>
-            <meta content="Popular Github Repos - Github Trends" property="og:title">
-            <meta name="description" content="Popular Github Repos - Github Trends">
-            <meta property="og:description" content="Popular Github Repos - Github Trends">
-            <meta name="twitter:description" content="Popular Github Repos - Github Trends">
-            <meta name="keywords" content="github,github trending,trending,ranking">
-            <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=yes">
-            <meta content="IE=edge" http-equiv="X-UA-Compatible">
-            <meta content="max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots">
-            <meta content="#598cff" name="theme-color">
-            <meta content="telephone=no" name="format-detection">
-            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-            <meta content="summary_large_image" name="twitter:card">
-            <meta content="@Seiriryu" name="twitter:site">
-            <meta content="@Seiriryu" name="twitter:creator">
-            <link rel="icon" href="https://newsround.eu.org/github-trends/favicon.ico">
-            <link
-                rel="stylesheet"
-                type="text/css"
-                href="https://newsround.eu.org/github-trends/css/styles.css"
-            />
-            <script src="https://newsround.eu.org/github-trends/js/script.js"></script>
-            <!-- Google tag (gtag.js) -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-S723HRN1MN"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-S723HRN1MN');
-            </script>
-        </head>
-        <body>
-            <header>
-                <h1>Popular Github Repos</h1>
-                <nav>
-                    <ul>
-                        <li><a href="https://newsround.eu.org/github-trends" rel='follow'>Home</a></li>
-                        <li><a href="https://newsround.eu.org/github-trends/archive.html" rel='follow'>Archives</a></li>
-                    </ul>
-                </nav>
-            </header>
-            <div class="row">
-                <div class="col">
-                    <div class='category-title'>Daily Trend</div>
-                    <div class="main show">
-                        <main>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/bytedance/UI-TARS-desktop' rel='nofollow' target='_blank'>/bytedance/UI-TARS-desktop</a>
-                            </h2>
-                            <p> description: <span>The Open-Source Multimodal AI Agent Stack: Connecting Cutting-Edge AI Models and Agent Infra</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>26,669</span> </p>
-                            <p class="news-attr">folks: <span>2,611</span> </p>
-                            <p class="news-attr">recent stars: <span>560 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/openai/skills' rel='nofollow' target='_blank'>/openai/skills</a>
-                            </h2>
-                            <p> description: <span>Skills Catalog for Codex</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>4,235</span> </p>
-                            <p class="news-attr">folks: <span>243</span> </p>
-                            <p class="news-attr">recent stars: <span>621 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/thedotmack/claude-mem' rel='nofollow' target='_blank'>/thedotmack/claude-mem</a>
-                            </h2>
-                            <p> description: <span>A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions.</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>23,652</span> </p>
-                            <p class="news-attr">folks: <span>1,567</span> </p>
-                            <p class="news-attr">recent stars: <span>1,899 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/j178/prek' rel='nofollow' target='_blank'>/j178/prek</a>
-                            </h2>
-                            <p> description: <span>⚡ Better `pre-commit`, re-engineered in Rust</span> </p>
-                            <p class="news-attr">launage: <span>Rust</span> </p>
-                            <p class="news-attr">starts: <span>5,487</span> </p>
-                            <p class="news-attr">folks: <span>145</span> </p>
-                            <p class="news-attr">recent stars: <span>267 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/topoteretes/cognee' rel='nofollow' target='_blank'>/topoteretes/cognee</a>
-                            </h2>
-                            <p> description: <span>Memory for AI Agents in 6 lines of code</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>11,824</span> </p>
-                            <p class="news-attr">folks: <span>1,157</span> </p>
-                            <p class="news-attr">recent stars: <span>69 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/obra/superpowers' rel='nofollow' target='_blank'>/obra/superpowers</a>
-                            </h2>
-                            <p> description: <span>An agentic skills framework & software development methodology that works.</span> </p>
-                            <p class="news-attr">launage: <span>Shell</span> </p>
-                            <p class="news-attr">starts: <span>45,285</span> </p>
-                            <p class="news-attr">folks: <span>3,429</span> </p>
-                            <p class="news-attr">recent stars: <span>893 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/aquasecurity/trivy' rel='nofollow' target='_blank'>/aquasecurity/trivy</a>
-                            </h2>
-                            <p> description: <span>Find vulnerabilities, misconfigurations, secrets, SBOM in containers, Kubernetes, code repositories, clouds and more</span> </p>
-                            <p class="news-attr">launage: <span>Go</span> </p>
-                            <p class="news-attr">starts: <span>31,349</span> </p>
-                            <p class="news-attr">folks: <span>2,910</span> </p>
-                            <p class="news-attr">recent stars: <span>45 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/fish-shell/fish-shell' rel='nofollow' target='_blank'>/fish-shell/fish-shell</a>
-                            </h2>
-                            <p> description: <span>The user-friendly command line shell.</span> </p>
-                            <p class="news-attr">launage: <span>Rust</span> </p>
-                            <p class="news-attr">starts: <span>32,367</span> </p>
-                            <p class="news-attr">folks: <span>2,211</span> </p>
-                            <p class="news-attr">recent stars: <span>75 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/nvm-sh/nvm' rel='nofollow' target='_blank'>/nvm-sh/nvm</a>
-                            </h2>
-                            <p> description: <span>Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions</span> </p>
-                            <p class="news-attr">launage: <span>Shell</span> </p>
-                            <p class="news-attr">starts: <span>91,361</span> </p>
-                            <p class="news-attr">folks: <span>9,828</span> </p>
-                            <p class="news-attr">recent stars: <span>135 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/linshenkx/prompt-optimizer' rel='nofollow' target='_blank'>/linshenkx/prompt-optimizer</a>
-                            </h2>
-                            <p> description: <span>一款提示词优化器，助力于编写高质量的提示词</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>19,319</span> </p>
-                            <p class="news-attr">folks: <span>2,395</span> </p>
-                            <p class="news-attr">recent stars: <span>45 stars today</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/ZeroTworu/anet' rel='nofollow' target='_blank'>/ZeroTworu/anet</a>
-                            </h2>
-                            <p> description: <span>Simple Rust VPN Client / Server</span> </p>
-                            <p class="news-attr">launage: <span>Rust</span> </p>
-                            <p class="news-attr">starts: <span>348</span> </p>
-                            <p class="news-attr">folks: <span>25</span> </p>
-                            <p class="news-attr">recent stars: <span>79 stars today</span> </p>
-                        </article>
-                        
-                        </main>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class='category-title'>Weekly Trend</div>
-                    <div class="main show">
-                        <main>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/openclaw/openclaw' rel='nofollow' target='_blank'>/openclaw/openclaw</a>
-                            </h2>
-                            <p> description: <span>Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>167,459</span> </p>
-                            <p class="news-attr">folks: <span>26,652</span> </p>
-                            <p class="news-attr">recent stars: <span>79,566 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/thedotmack/claude-mem' rel='nofollow' target='_blank'>/thedotmack/claude-mem</a>
-                            </h2>
-                            <p> description: <span>A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions.</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>23,652</span> </p>
-                            <p class="news-attr">folks: <span>1,567</span> </p>
-                            <p class="news-attr">recent stars: <span>6,422 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/asgeirtj/system_prompts_leaks' rel='nofollow' target='_blank'>/asgeirtj/system_prompts_leaks</a>
-                            </h2>
-                            <p> description: <span>Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini</span> </p>
-                            <p class="news-attr">launage: <span>JavaScript</span> </p>
-                            <p class="news-attr">starts: <span>30,277</span> </p>
-                            <p class="news-attr">folks: <span>4,864</span> </p>
-                            <p class="news-attr">recent stars: <span>4,301 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/badlogic/pi-mono' rel='nofollow' target='_blank'>/badlogic/pi-mono</a>
-                            </h2>
-                            <p> description: <span>AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>7,131</span> </p>
-                            <p class="news-attr">folks: <span>726</span> </p>
-                            <p class="news-attr">recent stars: <span>3,554 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/ThePrimeagen/99' rel='nofollow' target='_blank'>/ThePrimeagen/99</a>
-                            </h2>
-                            <p> description: <span>Neovim AI agent done right</span> </p>
-                            <p class="news-attr">launage: <span>Lua</span> </p>
-                            <p class="news-attr">starts: <span>3,354</span> </p>
-                            <p class="news-attr">folks: <span>154</span> </p>
-                            <p class="news-attr">recent stars: <span>2,100 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/microsoft/BitNet' rel='nofollow' target='_blank'>/microsoft/BitNet</a>
-                            </h2>
-                            <p> description: <span>Official inference framework for 1-bit LLMs</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>27,917</span> </p>
-                            <p class="news-attr">folks: <span>2,268</span> </p>
-                            <p class="news-attr">recent stars: <span>1,984 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/MoonshotAI/kimi-cli' rel='nofollow' target='_blank'>/MoonshotAI/kimi-cli</a>
-                            </h2>
-                            <p> description: <span>Kimi Code CLI is your next CLI agent.</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>6,049</span> </p>
-                            <p class="news-attr">folks: <span>559</span> </p>
-                            <p class="news-attr">recent stars: <span>1,597 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/openai/skills' rel='nofollow' target='_blank'>/openai/skills</a>
-                            </h2>
-                            <p> description: <span>Skills Catalog for Codex</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>4,235</span> </p>
-                            <p class="news-attr">folks: <span>243</span> </p>
-                            <p class="news-attr">recent stars: <span>1,403 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/microsoft/playwright-cli' rel='nofollow' target='_blank'>/microsoft/playwright-cli</a>
-                            </h2>
-                            <p> description: <span>CLI for common Playwright actions. Record and generate Playwright code, inspect selectors and take screenshots.</span> </p>
-                            <p class="news-attr">launage: <span>JavaScript</span> </p>
-                            <p class="news-attr">starts: <span>2,266</span> </p>
-                            <p class="news-attr">folks: <span>93</span> </p>
-                            <p class="news-attr">recent stars: <span>642 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/pedramamini/Maestro' rel='nofollow' target='_blank'>/pedramamini/Maestro</a>
-                            </h2>
-                            <p> description: <span>Agent Orchestration Command Center</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>1,810</span> </p>
-                            <p class="news-attr">folks: <span>171</span> </p>
-                            <p class="news-attr">recent stars: <span>909 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/microsoft/agent-lightning' rel='nofollow' target='_blank'>/microsoft/agent-lightning</a>
-                            </h2>
-                            <p> description: <span>The absolute trainer to light up AI agents.</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>14,097</span> </p>
-                            <p class="news-attr">folks: <span>1,186</span> </p>
-                            <p class="news-attr">recent stars: <span>2,080 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/NevaMind-AI/memU' rel='nofollow' target='_blank'>/NevaMind-AI/memU</a>
-                            </h2>
-                            <p> description: <span>Memory for 24/7 proactive agents like openclaw (moltbot, clawdbot).</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>7,845</span> </p>
-                            <p class="news-attr">folks: <span>601</span> </p>
-                            <p class="news-attr">recent stars: <span>2,289 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/disler/claude-code-hooks-mastery' rel='nofollow' target='_blank'>/disler/claude-code-hooks-mastery</a>
-                            </h2>
-                            <p> description: <span>Master Claude Code Hooks</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>2,544</span> </p>
-                            <p class="news-attr">folks: <span>510</span> </p>
-                            <p class="news-attr">recent stars: <span>174 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/VectifyAI/PageIndex' rel='nofollow' target='_blank'>/VectifyAI/PageIndex</a>
-                            </h2>
-                            <p> description: <span>📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>13,573</span> </p>
-                            <p class="news-attr">folks: <span>978</span> </p>
-                            <p class="news-attr">recent stars: <span>2,845 stars this week</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/modelcontextprotocol/ext-apps' rel='nofollow' target='_blank'>/modelcontextprotocol/ext-apps</a>
-                            </h2>
-                            <p> description: <span>Official repo for spec & SDK of MCP Apps protocol - standard for UIs embedded AI chatbots, served by MCP servers</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>1,371</span> </p>
-                            <p class="news-attr">folks: <span>151</span> </p>
-                            <p class="news-attr">recent stars: <span>698 stars this week</span> </p>
-                        </article>
-                        
-                        </main>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class='category-title'>Monethly Trend</div>
-                    <div class="main show">
-                        <main>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/openclaw/openclaw' rel='nofollow' target='_blank'>/openclaw/openclaw</a>
-                            </h2>
-                            <p> description: <span>Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>167,459</span> </p>
-                            <p class="news-attr">folks: <span>26,652</span> </p>
-                            <p class="news-attr">recent stars: <span>160,374 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/obra/superpowers' rel='nofollow' target='_blank'>/obra/superpowers</a>
-                            </h2>
-                            <p> description: <span>An agentic skills framework & software development methodology that works.</span> </p>
-                            <p class="news-attr">launage: <span>Shell</span> </p>
-                            <p class="news-attr">starts: <span>45,285</span> </p>
-                            <p class="news-attr">folks: <span>3,429</span> </p>
-                            <p class="news-attr">recent stars: <span>30,680 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/anomalyco/opencode' rel='nofollow' target='_blank'>/anomalyco/opencode</a>
-                            </h2>
-                            <p> description: <span>The open source coding agent.</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>98,389</span> </p>
-                            <p class="news-attr">folks: <span>9,316</span> </p>
-                            <p class="news-attr">recent stars: <span>50,686 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/frankbria/ralph-claude-code' rel='nofollow' target='_blank'>/frankbria/ralph-claude-code</a>
-                            </h2>
-                            <p> description: <span>Autonomous AI development loop for Claude Code with intelligent exit detection</span> </p>
-                            <p class="news-attr">launage: <span>Shell</span> </p>
-                            <p class="news-attr">starts: <span>6,357</span> </p>
-                            <p class="news-attr">folks: <span>442</span> </p>
-                            <p class="news-attr">recent stars: <span>5,947 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/anthropics/skills' rel='nofollow' target='_blank'>/anthropics/skills</a>
-                            </h2>
-                            <p> description: <span>Public repository for Agent Skills</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>63,931</span> </p>
-                            <p class="news-attr">folks: <span>6,306</span> </p>
-                            <p class="news-attr">recent stars: <span>30,308 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/VectifyAI/PageIndex' rel='nofollow' target='_blank'>/VectifyAI/PageIndex</a>
-                            </h2>
-                            <p> description: <span>📑 PageIndex: Document Index for Vectorless, Reasoning-based RAG</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>13,573</span> </p>
-                            <p class="news-attr">folks: <span>978</span> </p>
-                            <p class="news-attr">recent stars: <span>8,687 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/code-yeongyu/oh-my-opencode' rel='nofollow' target='_blank'>/code-yeongyu/oh-my-opencode</a>
-                            </h2>
-                            <p> description: <span>The Best Agent Harness. Meet Sisyphus: The Batteries-Included Agent that codes like you.</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>28,498</span> </p>
-                            <p class="news-attr">folks: <span>2,097</span> </p>
-                            <p class="news-attr">recent stars: <span>21,888 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/badlogic/pi-mono' rel='nofollow' target='_blank'>/badlogic/pi-mono</a>
-                            </h2>
-                            <p> description: <span>AI agent toolkit: coding agent CLI, unified LLM API, TUI & web UI libraries, Slack bot, vLLM pods</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>7,131</span> </p>
-                            <p class="news-attr">folks: <span>726</span> </p>
-                            <p class="news-attr">recent stars: <span>5,452 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/remotion-dev/remotion' rel='nofollow' target='_blank'>/remotion-dev/remotion</a>
-                            </h2>
-                            <p> description: <span>🎥 Make videos programmatically with React</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>35,146</span> </p>
-                            <p class="news-attr">folks: <span>2,132</span> </p>
-                            <p class="news-attr">recent stars: <span>9,839 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/anthropics/claude-plugins-official' rel='nofollow' target='_blank'>/anthropics/claude-plugins-official</a>
-                            </h2>
-                            <p> description: <span>Official, Anthropic-managed directory of high quality Claude Code Plugins.</span> </p>
-                            <p class="news-attr">launage: <span>Shell</span> </p>
-                            <p class="news-attr">starts: <span>6,631</span> </p>
-                            <p class="news-attr">folks: <span>640</span> </p>
-                            <p class="news-attr">recent stars: <span>4,893 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/asgeirtj/system_prompts_leaks' rel='nofollow' target='_blank'>/asgeirtj/system_prompts_leaks</a>
-                            </h2>
-                            <p> description: <span>Collection of extracted System Prompts from popular chatbots like ChatGPT, Claude & Gemini</span> </p>
-                            <p class="news-attr">launage: <span>JavaScript</span> </p>
-                            <p class="news-attr">starts: <span>30,277</span> </p>
-                            <p class="news-attr">folks: <span>4,864</span> </p>
-                            <p class="news-attr">recent stars: <span>5,373 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/anthropics/claude-code' rel='nofollow' target='_blank'>/anthropics/claude-code</a>
-                            </h2>
-                            <p> description: <span>Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands.</span> </p>
-                            <p class="news-attr">launage: <span>Shell</span> </p>
-                            <p class="news-attr">starts: <span>64,427</span> </p>
-                            <p class="news-attr">folks: <span>4,904</span> </p>
-                            <p class="news-attr">recent stars: <span>13,326 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/lbjlaq/Antigravity-Manager' rel='nofollow' target='_blank'>/lbjlaq/Antigravity-Manager</a>
-                            </h2>
-                            <p> description: <span>Professional Antigravity Account Manager & Switcher. One-click seamless account switching for Antigravity Tools. Built with Tauri v2 + React (Rust).专业的 Antigravity 账号管理与切换工具。为 Antigravity 提供一键无缝账号切换功能。</span> </p>
-                            <p class="news-attr">launage: <span>Rust</span> </p>
-                            <p class="news-attr">starts: <span>21,418</span> </p>
-                            <p class="news-attr">folks: <span>2,424</span> </p>
-                            <p class="news-attr">recent stars: <span>13,544 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/bytedance/UI-TARS-desktop' rel='nofollow' target='_blank'>/bytedance/UI-TARS-desktop</a>
-                            </h2>
-                            <p> description: <span>The Open-Source Multimodal AI Agent Stack: Connecting Cutting-Edge AI Models and Agent Infra</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>26,669</span> </p>
-                            <p class="news-attr">folks: <span>2,611</span> </p>
-                            <p class="news-attr">recent stars: <span>5,636 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/ComposioHQ/awesome-claude-skills' rel='nofollow' target='_blank'>/ComposioHQ/awesome-claude-skills</a>
-                            </h2>
-                            <p> description: <span>A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows</span> </p>
-                            <p class="news-attr">launage: <span>Python</span> </p>
-                            <p class="news-attr">starts: <span>30,759</span> </p>
-                            <p class="news-attr">folks: <span>2,941</span> </p>
-                            <p class="news-attr">recent stars: <span>15,763 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/thedotmack/claude-mem' rel='nofollow' target='_blank'>/thedotmack/claude-mem</a>
-                            </h2>
-                            <p> description: <span>A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions.</span> </p>
-                            <p class="news-attr">launage: <span>TypeScript</span> </p>
-                            <p class="news-attr">starts: <span>23,652</span> </p>
-                            <p class="news-attr">folks: <span>1,567</span> </p>
-                            <p class="news-attr">recent stars: <span>11,993 stars this month</span> </p>
-                        </article>
-                        
-                        <article>
-                            <h2 >
-                                <a href='https://github.com/DataTalksClub/data-engineering-zoomcamp' rel='nofollow' target='_blank'>/DataTalksClub/data-engineering-zoomcamp</a>
-                            </h2>
-                            <p> description: <span>Data Engineering Zoomcamp is a free 9-week course on building production-ready data pipelines. The next cohort starts in January 2026. Join the course here 👇🏼</span> </p>
-                            <p class="news-attr">launage: <span>Jupyter Notebook</span> </p>
-                            <p class="news-attr">starts: <span>38,054</span> </p>
-                            <p class="news-attr">folks: <span>7,668</span> </p>
-                            <p class="news-attr">recent stars: <span>3,910 stars this month</span> </p>
-                        </article>
-                        
-                        </main>
-                    </div>
-                </div>
-            </div>
-            <footer>
-                <p>&copy; 2023 <a href="https://github.com/RyuSeiri">Seiri</a> All rights reserved.</p>
-            </footer>
-        </body>
-    </html>
-    
+    <!-- Main -->
+    <div class="main-content" id="app"></div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span class="footer-text"
+          >GitTrends - Not affiliated with GitHub, Inc.</span
+        >
+        <nav class="footer-nav">
+          <a href="#/about" class="footer-link">About</a>
+          <a href="#/privacy" class="footer-link">Privacy Policy</a>
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-link"
+            >GitHub</a
+          >
+        </nav>
+      </div>
+    </footer>
+
+    <!-- SVG Icons reused in JS -->
+    <template id="icon-star">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polygon
+          points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+        />
+      </svg>
+    </template>
+    <template id="icon-fork">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="18" r="3" />
+        <circle cx="6" cy="6" r="3" />
+        <circle cx="18" cy="6" r="3" />
+        <path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9" />
+        <path d="M12 12v3" />
+      </svg>
+    </template>
+    <template id="icon-eye">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    </template>
+    <template id="icon-external">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        <polyline points="15 3 21 3 21 9" />
+        <line x1="10" y1="14" x2="21" y2="3" />
+      </svg>
+    </template>
+    <template id="icon-chevron-left">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </template>
+    <template id="icon-chevron-right">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </template>
+    <template id="icon-alert">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+    </template>
+
+    <script>
+      // ---- Data ----
+      const LANGUAGES = [
+        { value: "", label: "All Languages" },
+        { value: "javascript", label: "JavaScript" },
+        { value: "typescript", label: "TypeScript" },
+        { value: "python", label: "Python" },
+        { value: "java", label: "Java" },
+        { value: "go", label: "Go" },
+        { value: "rust", label: "Rust" },
+        { value: "c++", label: "C++" },
+        { value: "c", label: "C" },
+        { value: "c#", label: "C#" },
+        { value: "php", label: "PHP" },
+        { value: "ruby", label: "Ruby" },
+        { value: "swift", label: "Swift" },
+        { value: "kotlin", label: "Kotlin" },
+        { value: "dart", label: "Dart" },
+        { value: "scala", label: "Scala" },
+        { value: "shell", label: "Shell" },
+        { value: "html", label: "HTML" },
+        { value: "css", label: "CSS" },
+        { value: "vue", label: "Vue" },
+      ];
+
+      const LANG_COLORS = {
+        JavaScript: "#f1e05a",
+        TypeScript: "#3178c6",
+        Python: "#3572A5",
+        Java: "#b07219",
+        Go: "#00ADD8",
+        Rust: "#dea584",
+        "C++": "#f34b7d",
+        C: "#555555",
+        "C#": "#178600",
+        PHP: "#4F5D95",
+        Ruby: "#701516",
+        Swift: "#F05138",
+        Kotlin: "#A97BFF",
+        Dart: "#00B4AB",
+        Scala: "#c22d40",
+        Shell: "#89e051",
+        HTML: "#e34c26",
+        CSS: "#563d7c",
+        Vue: "#41b883",
+        Jupyter_Notebook: "#DA5B0B",
+        R: "#198CE7",
+        Lua: "#000080",
+        Elixir: "#6e4a7e",
+        Haskell: "#5e5086",
+        Zig: "#ec915c",
+      };
+
+      const SORT_OPTIONS = [
+        { value: "stars", label: "Stars" },
+        { value: "forks", label: "Forks" },
+        { value: "updated", label: "Recently Updated" },
+        { value: "help-wanted-issues", label: "Help Wanted" },
+      ];
+
+      // ---- Helpers ----
+      function formatNum(n) {
+        if (n >= 1000) return (n / 1000).toFixed(1) + "k";
+        return String(n);
+      }
+
+      function getDateSince(range) {
+        const d = new Date();
+        if (range === "weekly") d.setDate(d.getDate() - 7);
+        else if (range === "monthly") d.setMonth(d.getMonth() - 1);
+        else d.setDate(d.getDate() - 1);
+        return d.toISOString().split("T")[0];
+      }
+
+      function getIcon(id) {
+        const tpl = document.getElementById(id);
+        return tpl ? tpl.innerHTML : "";
+      }
+
+      function languageOptions() {
+        return LANGUAGES.map(
+          (l) => `<option value="${l.value}">${l.label}</option>`,
+        ).join("");
+      }
+
+      function escapeHtml(s) {
+        if (!s) return "";
+        return s
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      // ---- Render Repo Card ----
+      function renderRepoCard(repo, rank) {
+        const langColor = repo.language
+          ? LANG_COLORS[repo.language] || "#8b8b8b"
+          : null;
+        const topics = (repo.topics || []).slice(0, 5);
+        return `
+    <a href="${escapeHtml(repo.html_url)}" target="_blank" rel="noopener noreferrer" class="repo-card">
+      <div class="repo-rank">${rank}</div>
+      <div class="repo-body">
+        <div class="repo-top">
+          <div class="repo-name-row">
+            <img src="${escapeHtml(repo.owner.avatar_url)}" alt="${escapeHtml(repo.owner.login)}'s avatar" class="repo-avatar" crossorigin="anonymous" />
+            <span class="repo-name">${escapeHtml(repo.full_name)}</span>
+          </div>
+          <span class="repo-external">${getIcon("icon-external")}</span>
+        </div>
+        ${repo.description ? `<p class="repo-desc">${escapeHtml(repo.description)}</p>` : ""}
+        <div class="repo-stats">
+          ${langColor ? `<span class="repo-stat"><span class="lang-dot" style="background:${langColor}"></span>${escapeHtml(repo.language)}</span>` : ""}
+          <span class="repo-stat">${getIcon("icon-star")}${formatNum(repo.stargazers_count)}</span>
+          <span class="repo-stat">${getIcon("icon-fork")}${formatNum(repo.forks_count)}</span>
+          <span class="repo-stat">${getIcon("icon-eye")}${formatNum(repo.watchers_count)}</span>
+        </div>
+        ${topics.length ? `<div class="repo-topics">${topics.map((t) => `<span class="topic-tag">${escapeHtml(t)}</span>`).join("")}</div>` : ""}
+      </div>
+    </a>
+  `;
+      }
+
+      function renderSkeletons(count) {
+        let html = "";
+        for (let i = 0; i < count; i++) {
+          html += `
+      <div class="skeleton-card">
+        <div class="skeleton skeleton-rank" style="width:2rem;height:2rem;"></div>
+        <div class="skeleton-body">
+          <div class="skeleton" style="height:1.25rem;width:12rem;"></div>
+          <div class="skeleton" style="height:1rem;width:100%;"></div>
+          <div style="display:flex;gap:0.75rem;">
+            <div class="skeleton" style="height:1rem;width:4rem;"></div>
+            <div class="skeleton" style="height:1rem;width:3rem;"></div>
+            <div class="skeleton" style="height:1rem;width:3rem;"></div>
+          </div>
+        </div>
+      </div>`;
+        }
+        return html;
+      }
+
+      function renderPagination(page, hasMore, onPrev, onNext) {
+        return `
+    <div class="pagination">
+      <button class="page-btn" id="prev-btn" ${page <= 1 ? "disabled" : ""}>
+        ${getIcon("icon-chevron-left")} Previous
+      </button>
+      <span class="page-info">Page ${page}</span>
+      <button class="page-btn" id="next-btn" ${!hasMore ? "disabled" : ""}>
+        Next ${getIcon("icon-chevron-right")}
+      </button>
+    </div>`;
+      }
+
+      // ---- State ----
+      let trendingState = {
+        range: "daily",
+        language: "",
+        page: 1,
+        data: null,
+        loading: false,
+        error: false,
+      };
+      let searchState = {
+        query: "",
+        submitted: "",
+        language: "",
+        sort: "stars",
+        page: 1,
+        data: null,
+        loading: false,
+        error: false,
+      };
+
+      // ---- API Calls ----
+      async function fetchTrending() {
+        trendingState.loading = true;
+        trendingState.error = false;
+        renderTrendingPage();
+
+        const dateSince = getDateSince(trendingState.range);
+        let q = `created:>${dateSince}`;
+        if (trendingState.language) q += ` language:${trendingState.language}`;
+        const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(q)}&sort=stars&order=desc&per_page=25&page=${trendingState.page}`;
+
+        try {
+          const res = await fetch(url, {
+            headers: {
+              Accept: "application/vnd.github.v3+json",
+              "User-Agent": "GitTrends-App",
+            },
+          });
+          if (!res.ok) throw new Error("API error");
+          trendingState.data = await res.json();
+          trendingState.error = false;
+        } catch {
+          trendingState.error = true;
+          trendingState.data = null;
+        }
+        trendingState.loading = false;
+        renderTrendingPage();
+      }
+
+      async function fetchSearch() {
+        if (!searchState.submitted) return;
+        searchState.loading = true;
+        searchState.error = false;
+        renderSearchPage();
+
+        let q = searchState.submitted;
+        if (searchState.language) q += ` language:${searchState.language}`;
+        const url = `https://api.github.com/search/repositories?q=${encodeURIComponent(q)}&sort=${searchState.sort}&order=desc&per_page=25&page=${searchState.page}`;
+
+        try {
+          const res = await fetch(url, {
+            headers: {
+              Accept: "application/vnd.github.v3+json",
+              "User-Agent": "GitTrends-App",
+            },
+          });
+          if (!res.ok) throw new Error("API error");
+          searchState.data = await res.json();
+          searchState.error = false;
+        } catch {
+          searchState.error = true;
+          searchState.data = null;
+        }
+        searchState.loading = false;
+        renderSearchPage();
+      }
+
+      // ---- Page Renderers ----
+      function renderTrendingPage() {
+        const app = document.getElementById("app");
+        const s = trendingState;
+        const repos = s.data?.items || [];
+        const total = s.data?.total_count || 0;
+
+        const ranges = [
+          {
+            value: "daily",
+            label: "Today",
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg>',
+          },
+          {
+            value: "weekly",
+            label: "This Week",
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+          },
+          {
+            value: "monthly",
+            label: "This Month",
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>',
+          },
+        ];
+
+        let html = `<div class="container">
+    <div class="page-header">
+      <div class="page-header-row">
+        <div class="page-icon primary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <h1 class="page-title">Trending Repositories</h1>
+      </div>
+      <p class="page-subtitle">Discover the most popular open-source projects on GitHub right now.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.5rem;">
+      <div class="controls-row">
+        <div class="tab-group">
+          ${ranges.map((r) => `<button class="tab-btn ${s.range === r.value ? "active" : ""}" data-range="${r.value}">${r.icon}${r.label}</button>`).join("")}
+        </div>
+        <select class="select" id="trending-lang">${languageOptions()}</select>
+      </div>`;
+
+        if (s.error) {
+          html += `<div class="error-banner">${getIcon("icon-alert")}<span>Failed to load trending repositories. Please try again later.</span></div>`;
+        }
+
+        if (!s.error && !s.loading && total > 0) {
+          html += `<p class="status-text">Showing ${repos.length} of ${total.toLocaleString()} repositories</p>`;
+        }
+
+        html += `<div class="repo-list" id="trending-list">`;
+        if (s.loading) {
+          html += renderSkeletons(10);
+        } else {
+          repos.forEach((repo, i) => {
+            html += renderRepoCard(repo, (s.page - 1) * 25 + i + 1);
+          });
+        }
+        html += `</div>`;
+
+        if (!s.loading && repos.length > 0) {
+          html += renderPagination(s.page, repos.length >= 25);
+        }
+
+        if (!s.loading && repos.length === 0 && !s.error) {
+          html += `<div class="empty-state">
+      <p class="empty-title">No repositories found</p>
+      <p class="empty-desc">Try changing the time range or language filter.</p>
+    </div>`;
+        }
+
+        html += `</div></div>`;
+        app.innerHTML = html;
+
+        // Bind events
+        document.querySelectorAll("[data-range]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            trendingState.range = btn.dataset.range;
+            trendingState.page = 1;
+            fetchTrending();
+          });
+        });
+
+        const langSelect = document.getElementById("trending-lang");
+        if (langSelect) {
+          langSelect.value = s.language;
+          langSelect.addEventListener("change", () => {
+            trendingState.language = langSelect.value;
+            trendingState.page = 1;
+            fetchTrending();
+          });
+        }
+
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        if (prevBtn)
+          prevBtn.addEventListener("click", () => {
+            trendingState.page = Math.max(1, s.page - 1);
+            fetchTrending();
+          });
+        if (nextBtn)
+          nextBtn.addEventListener("click", () => {
+            trendingState.page = s.page + 1;
+            fetchTrending();
+          });
+      }
+
+      function renderSearchPage() {
+        const app = document.getElementById("app");
+        const s = searchState;
+        const repos = s.data?.items || [];
+        const total = s.data?.total_count || 0;
+
+        let html = `<div class="container">
+    <div class="page-header">
+      <div class="page-header-row">
+        <div class="page-icon accent">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <h1 class="page-title">Search Repositories</h1>
+      </div>
+      <p class="page-subtitle">Search across millions of GitHub repositories by name, topic, or language.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.5rem;">
+      <form class="search-form" id="search-form">
+        <div class="search-input-row">
+          <div class="search-input-wrap">
+            <span class="search-input-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <input type="text" class="search-input" id="search-query" placeholder="Search repositories..." value="${escapeHtml(s.query)}" />
+          </div>
+          <button type="submit" class="search-submit">Search</button>
+        </div>
+        <div class="search-filters">
+          <select class="select" id="search-lang">${languageOptions()}</select>
+          <select class="select" id="search-sort">${SORT_OPTIONS.map((o) => `<option value="${o.value}">Sort: ${o.label}</option>`).join("")}</select>
+        </div>
+      </form>`;
+
+        if (s.error) {
+          html += `<div class="error-banner">${getIcon("icon-alert")}<span>Failed to search repositories. Please try again later.</span></div>`;
+        }
+
+        if (s.submitted && !s.error && !s.loading && total > 0) {
+          html += `<p class="status-text">Found ${total.toLocaleString()} repositories for <span style="font-weight:500;color:var(--fg)">"${escapeHtml(s.submitted)}"</span></p>`;
+        }
+
+        html += `<div class="repo-list" id="search-list">`;
+        if (s.loading) {
+          html += renderSkeletons(8);
+        } else {
+          repos.forEach((repo, i) => {
+            html += renderRepoCard(repo, (s.page - 1) * 25 + i + 1);
+          });
+        }
+        html += `</div>`;
+
+        if (!s.loading && repos.length > 0) {
+          html += renderPagination(s.page, repos.length >= 25);
+        }
+
+        if (!s.submitted) {
+          html += `<div class="empty-state">
+      <div class="empty-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+      <p class="empty-title">Start exploring</p>
+      <p class="empty-desc">Search for repositories by name, description, or topic. Filter by language and sort by stars, forks, or recent updates.</p>
+    </div>`;
+        }
+
+        if (s.submitted && !s.loading && repos.length === 0 && !s.error) {
+          html += `<div class="empty-state">
+      <p class="empty-title">No results found</p>
+      <p class="empty-desc">Try different keywords or adjust your filters.</p>
+    </div>`;
+        }
+
+        html += `</div></div>`;
+        app.innerHTML = html;
+
+        // Bind events
+        const form = document.getElementById("search-form");
+        const queryInput = document.getElementById("search-query");
+        const langSelect = document.getElementById("search-lang");
+        const sortSelect = document.getElementById("search-sort");
+
+        if (langSelect) langSelect.value = s.language;
+        if (sortSelect) sortSelect.value = s.sort;
+
+        if (queryInput) {
+          queryInput.addEventListener("input", (e) => {
+            searchState.query = e.target.value;
+          });
+        }
+
+        if (form) {
+          form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (searchState.query.trim()) {
+              searchState.submitted = searchState.query.trim();
+              searchState.page = 1;
+              fetchSearch();
+            }
+          });
+        }
+
+        if (langSelect) {
+          langSelect.addEventListener("change", () => {
+            searchState.language = langSelect.value;
+            searchState.page = 1;
+            if (searchState.submitted) fetchSearch();
+          });
+        }
+
+        if (sortSelect) {
+          sortSelect.addEventListener("change", () => {
+            searchState.sort = sortSelect.value;
+            searchState.page = 1;
+            if (searchState.submitted) fetchSearch();
+          });
+        }
+
+        const prevBtn = document.getElementById("prev-btn");
+        const nextBtn = document.getElementById("next-btn");
+        if (prevBtn)
+          prevBtn.addEventListener("click", () => {
+            searchState.page = Math.max(1, s.page - 1);
+            fetchSearch();
+          });
+        if (nextBtn)
+          nextBtn.addEventListener("click", () => {
+            searchState.page = s.page + 1;
+            fetchSearch();
+          });
+      }
+
+      function renderAboutPage() {
+        const app = document.getElementById("app");
+        const features = [
+          {
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
+            title: "Trending Discovery",
+            desc: "Browse the hottest repositories across daily, weekly, and monthly timeframes to stay on top of what the community is building.",
+          },
+          {
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
+            title: "Powerful Search",
+            desc: "Search across millions of GitHub repositories with advanced filters for language, sort order, and more.",
+          },
+          {
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+            title: "Language Filtering",
+            desc: "Filter trending and search results by programming language to find projects in your tech stack.",
+          },
+          {
+            icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+            title: "Real-Time Data",
+            desc: "All data is fetched directly from the GitHub API, ensuring you always see the latest trending projects.",
+          },
+        ];
+
+        app.innerHTML = `<div class="container-narrow">
+    <div class="page-header">
+      <div class="page-header-row">
+        <div class="page-icon primary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <h1 class="page-title">About GitTrends</h1>
+      </div>
+      <p class="page-subtitle">Discover what the developer community is building.</p>
+    </div>
+    <div class="content-sections">
+      <div class="content-section">
+        <p class="section-text">GitTrends is a free, open-source tool that helps developers discover trending repositories on GitHub. Whether you are looking for inspiration, staying up to date with the latest tools, or exploring new programming languages, GitTrends makes it easy to find what is popular in the open-source world.</p>
+      </div>
+      <div class="content-section">
+        <h2 class="section-title">Features</h2>
+        <div class="feature-grid">
+          ${features
+            .map(
+              (f) => `
+            <div class="feature-card">
+              <div class="feature-card-header">${f.icon}<h3 class="feature-card-title">${f.title}</h3></div>
+              <p class="feature-card-desc">${f.desc}</p>
+            </div>`,
+            )
+            .join("")}
+        </div>
+      </div>
+      <div class="content-section">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-text">GitTrends uses the public GitHub Search API to find repositories created or updated within specific time ranges, sorted by popularity. The daily view shows repos created in the last 24 hours, weekly covers the past 7 days, and monthly spans the last 30 days.</p>
+      </div>
+      <div class="content-section">
+        <h2 class="section-title">Disclaimer</h2>
+        <p class="section-text">GitTrends is not affiliated with, endorsed by, or sponsored by GitHub, Inc. All repository data is publicly available through the GitHub API. GitHub and the GitHub logo are trademarks of GitHub, Inc.</p>
+      </div>
+    </div>
+  </div>`;
+      }
+
+      function renderPrivacyPage() {
+        const app = document.getElementById("app");
+        const sections = [
+          {
+            title: "Information We Collect",
+            text: "GitTrends is a client-side application that does not collect, store, or process any personal information. We do not require user accounts, and we do not track individual users.",
+          },
+          {
+            title: "GitHub API Usage",
+            text: "GitTrends uses the public GitHub REST API to fetch repository data. All data displayed on this site is publicly available through the GitHub API. We do not modify, store, or cache any personal user data from GitHub beyond temporary browser-level caching for performance.",
+          },
+          {
+            title: "Cookies",
+            text: "GitTrends does not use cookies or any form of local storage to track user behavior. Your preferences such as time range and language filters are stored only in the current session state and are not persisted.",
+          },
+          {
+            title: "Third-Party Services",
+            text: "Our application may be hosted on platforms that collect standard web server logs (IP addresses, browser type, pages visited) for operational purposes. These logs are handled by the hosting provider's privacy policy.",
+          },
+          {
+            title: "Changes to This Policy",
+            text: "We may update this privacy policy from time to time. Any changes will be reflected on this page with an updated revision date.",
+          },
+          {
+            title: "Contact",
+            text: "If you have any questions about this privacy policy, please open an issue on our GitHub repository.",
+          },
+        ];
+
+        app.innerHTML = `<div class="container-narrow">
+    <div class="page-header">
+      <div class="page-header-row">
+        <div class="page-icon accent">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h1 class="page-title">Privacy Policy</h1>
+      </div>
+      <p class="small-date">Last updated: February 6, 2026</p>
+    </div>
+    <div class="content-sections">
+      ${sections
+        .map(
+          (s) => `
+        <div class="content-section">
+          <h2 class="section-title">${s.title}</h2>
+          <p class="section-text">${s.text}</p>
+        </div>`,
+        )
+        .join("")}
+    </div>
+  </div>`;
+      }
+
+      function render404Page() {
+        const app = document.getElementById("app");
+        const route = getRoute();
+        app.innerHTML = `<div class="not-found">
+    <div class="not-found-code">404</div>
+    <h1 class="not-found-title">Page not found</h1>
+    <p class="not-found-desc">The page <span style="font-family:var(--font-mono);color:var(--fg)">${escapeHtml(route)}</span> does not exist. It may have been moved or removed, or you may have mistyped the URL.</p>
+    <a href="#/" class="not-found-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Back to Home
+    </a>
+    <div class="not-found-links">
+      <a href="#/search" class="not-found-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Search Repos
+      </a>
+      <a href="#/" class="not-found-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        Trending
+      </a>
+      <a href="#/about" class="not-found-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        About
+      </a>
+    </div>
+  </div>`;
+      }
+
+      // ---- Router ----
+      function getRoute() {
+        const hash = window.location.hash || "#/";
+        return hash.replace(/^#/, "") || "/";
+      }
+
+      function updateNav(route) {
+        document.querySelectorAll("[data-nav]").forEach((link) => {
+          const navId = link.dataset.nav;
+          let isActive = false;
+          if (navId === "trending" && (route === "/" || route === ""))
+            isActive = true;
+          else if (navId === "search" && route.startsWith("/search"))
+            isActive = true;
+          else if (navId === "about" && route.startsWith("/about"))
+            isActive = true;
+          else if (navId === "privacy" && route.startsWith("/privacy"))
+            isActive = true;
+          link.classList.toggle("active", isActive);
+        });
+      }
+
+      function navigate() {
+        const route = getRoute();
+        updateNav(route);
+        window.scrollTo(0, 0);
+
+        if (route === "/" || route === "") {
+          renderTrendingPage();
+          if (!trendingState.data && !trendingState.loading) fetchTrending();
+        } else if (route.startsWith("/search")) {
+          renderSearchPage();
+        } else if (route.startsWith("/about")) {
+          renderAboutPage();
+        } else if (route.startsWith("/privacy")) {
+          renderPrivacyPage();
+        } else {
+          render404Page();
+        }
+      }
+
+      // ---- Mobile Nav ----
+      function closeMobile() {
+        document.getElementById("mobile-nav").classList.remove("open");
+        document.getElementById("menu-icon").classList.remove("hidden");
+        document.getElementById("close-icon").classList.add("hidden");
+      }
+
+      document.getElementById("mobile-toggle").addEventListener("click", () => {
+        const nav = document.getElementById("mobile-nav");
+        const open = nav.classList.toggle("open");
+        document.getElementById("menu-icon").classList.toggle("hidden", open);
+        document.getElementById("close-icon").classList.toggle("hidden", !open);
+      });
+
+      // ---- Init ----
+      window.addEventListener("hashchange", navigate);
+      navigate();
+    </script>
+  </body>
+</html>

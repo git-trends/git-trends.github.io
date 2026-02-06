@@ -19,7 +19,7 @@
     <!-- Header -->
     <header class="site-header">
       <div class="header-inner">
-        <a href="#/" class="logo">
+        <a href="/" class="logo">
           <div class="logo-icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
           <span class="logo-text">GitTrends</span>
         </a>
         <nav class="nav-desktop">
-          <a href="#/" class="nav-link active" data-nav="trending">
+          <a href="/" class="nav-link active" data-nav="trending">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -52,7 +52,7 @@
             </svg>
             Trending
           </a>
-          <a href="#/search" class="nav-link" data-nav="search">
+          <a href="/search" class="nav-link" data-nav="search">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -120,7 +120,7 @@
       </div>
       <div class="mobile-nav" id="mobile-nav">
         <a
-          href="#/"
+          href="/"
           class="nav-link active"
           data-nav="trending"
           onclick="closeMobile()"
@@ -140,7 +140,7 @@
           Trending
         </a>
         <a
-          href="#/search"
+          href="/search"
           class="nav-link"
           data-nav="search"
           onclick="closeMobile()"
@@ -160,7 +160,7 @@
           Search
         </a>
         <a
-          href="#/about"
+          href="/about"
           class="nav-link"
           data-nav="about"
           onclick="closeMobile()"
@@ -181,7 +181,7 @@
           About
         </a>
         <a
-          href="#/privacy"
+          href="/privacy"
           class="nav-link"
           data-nav="privacy"
           onclick="closeMobile()"
@@ -228,7 +228,7 @@
           Back to Home
         </a>
         <div class="not-found-links">
-          <a href="#/search" class="not-found-link">
+          <a href="/search" class="not-found-link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -243,7 +243,7 @@
             </svg>
             Search Repos
           </a>
-          <a href="#/" class="not-found-link">
+          <a href="/" class="not-found-link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -258,7 +258,7 @@
             </svg>
             Trending
           </a>
-          <a href="#/about" class="not-found-link">
+          <a href="/about" class="not-found-link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -993,8 +993,8 @@
 
       // ---- Router ----
       function getRoute() {
-        const hash = window.location.hash || "#/";
-        return hash.replace(/^#/, "") || "/";
+        const hash = window.location.hash || "/";
+        return hash.replace(/^/, "") || "/";
       }
 
       function updateNav(route) {
